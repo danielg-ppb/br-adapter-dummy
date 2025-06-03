@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
-@RequiredArgsConstructor
 public class AdapterDummyService {
     private final AdapterPublisher producer;
+
+    public AdapterDummyService(AdapterPublisher producer) {
+        this.producer = producer;
+    }
 
     public void readJsonAndSend(String resourceFileName) throws Exception {
         List<CollectorEnvelopeUofProto.CollectorEnvelope> messages = JsonFileReader.processJsonFileFromResources(resourceFileName);
@@ -19,7 +21,7 @@ public class AdapterDummyService {
         for (CollectorEnvelopeUofProto.CollectorEnvelope message : messages) {
             String messageKey = message.getExternalId();
             producer.sendAdapterOutboundMessage(messageKey, message);
-            log.info("Message with ID " + messageKey + " sent to Pulsar topic.");
+            System.out.println("Message sent with key: " + messageKey);
         }
 
     }

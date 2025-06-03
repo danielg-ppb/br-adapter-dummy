@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import static org.apache.pulsar.client.api.BatcherBuilder.KEY_BASED;
 
-@Slf4j
 @Component
 public class AdapterPublisher {
     private final PulsarTemplate<CollectorEnvelopeUofProto.CollectorEnvelope> producer;
@@ -30,8 +29,7 @@ public class AdapterPublisher {
                     .withSchema(Schema.PROTOBUF(CollectorEnvelopeUofProto.CollectorEnvelope.class))
                     .send();
         } catch (Exception e) {
-            log.error("Message failed to be sent to Pulsar topic. Message ID: {}. Error: {}",
-                    messageKey, e.getMessage(), e);
+            System.out.println("Message failed to be sent to Pulsar topic. Message ID: " + messageKey + ". Error: " + e.getMessage());
             throw new PulsarException("Failed to send message to pulsar. Message ID: " + messageKey, e);
         }
     }
