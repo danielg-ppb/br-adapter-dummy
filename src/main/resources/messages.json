@@ -1,0 +1,44 @@
+[
+  {
+    "metadata": {
+      "provider": "Gui"
+    },
+    "entity": {
+      "external_id": "123",
+      "type": "Player",
+      "sport": "Tennis",
+      "properties": [
+        {
+          "key": "rank",
+          "value": "1",
+          "type": "int"
+        }
+      ],
+      "relationships": [
+        {
+          "name": "Gui",
+          "target_external_id": "456",
+          "target_type": "Player"
+        }
+      ]
+    }
+  },
+  {
+    "metadata": {
+      "provider": "Gui"
+    },
+    "entity": {
+      "external_id": "789",
+      "type": "Team",
+      "sport": "Football",
+      "properties": [
+        {
+          "key": "country",
+          "value": "Germany",
+          "type": "string"
+        }
+      ],
+      "relationships": []
+    }
+  }
+]
