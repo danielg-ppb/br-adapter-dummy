@@ -29,8 +29,8 @@
     },
     "entity": {
       "external_id": "789",
-      "type": "Team",
-      "sport": "Football",
+      "type": "SinglesMatch",
+      "sport": "TENNIS",
       "properties": [
         {
           "key": "country",
