@@ -1,7 +1,7 @@
 package com.br.adapter.dummy.adapterdummy;
 
 import com.google.protobuf.util.JsonFormat;
-import flutter.gstt.data.generic_external_entity.GenericExternalEntity;
+import flutter.gstt.data.betradar_uof.CollectorEnvelopeUofProto;
 import org.apache.pulsar.shade.com.fasterxml.jackson.databind.JsonNode;
 import org.apache.pulsar.shade.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonFileReader {
-    public static List<GenericExternalEntity.EntityEnvelope> processJsonFileFromResources(String resourceFileName) throws Exception {
+    public static List<CollectorEnvelopeUofProto.CollectorEnvelope> processJsonFileFromResources(String resourceFileName) throws Exception {
         ClassPathResource resource = new ClassPathResource(resourceFileName);
-        List<GenericExternalEntity.EntityEnvelope> entities = new ArrayList<>();
+        List<CollectorEnvelopeUofProto.CollectorEnvelope> entities = new ArrayList<>();
 
         try (InputStream inputStream = resource.getInputStream()) {
             ObjectMapper mapper = new ObjectMapper();
@@ -24,7 +24,7 @@ public class JsonFileReader {
             }
 
             for (JsonNode node : rootNode) {
-                GenericExternalEntity.EntityEnvelope.Builder builder = GenericExternalEntity.EntityEnvelope.newBuilder();
+                CollectorEnvelopeUofProto.CollectorEnvelope.Builder builder = CollectorEnvelopeUofProto.CollectorEnvelope.newBuilder();
                 JsonFormat.parser().merge(node.toString(), builder);
                 entities.add(builder.build());
             }

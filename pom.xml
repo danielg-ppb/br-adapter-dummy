@@ -52,7 +52,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.flutter.sports.tennis</groupId>
-			<artifactId>generic-external-entity</artifactId>
+			<artifactId>betradar-uof</artifactId>
 			<version>1.0.99</version>
 		</dependency>
 	</dependencies>

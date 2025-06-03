@@ -1,36 +1,33 @@
 package com.br.adapter.dummy.adapterdummy;
 
-import flutter.gstt.data.generic_external_entity.GenericExternalEntity;
+import flutter.gstt.data.betradar_uof.CollectorEnvelopeUofProto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.Schema;
 import org.springframework.pulsar.PulsarException;
 import org.springframework.pulsar.core.PulsarTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import java.util.concurrent.CompletableFuture;
 
 import static org.apache.pulsar.client.api.BatcherBuilder.KEY_BASED;
 
 @Slf4j
 @Component
 public class AdapterPublisher {
-    private final PulsarTemplate<GenericExternalEntity.EntityEnvelope> producer;
+    private final PulsarTemplate<CollectorEnvelopeUofProto.CollectorEnvelope> producer;
 
 
-    public AdapterPublisher(PulsarTemplate<GenericExternalEntity.EntityEnvelope> producer) {
+    public AdapterPublisher(PulsarTemplate<CollectorEnvelopeUofProto.CollectorEnvelope> producer) {
         this.producer = producer;
     }
 
     public MessageId sendAdapterOutboundMessage(
             String messageKey,
-            GenericExternalEntity.EntityEnvelope entityEnvelope) {
+            CollectorEnvelopeUofProto.CollectorEnvelope entityEnvelope) {
         try {
             return producer.newMessage(entityEnvelope)
                     .withProducerCustomizer(producerBuilder -> producerBuilder.batcherBuilder(KEY_BASED))
                     .withMessageCustomizer(messageBuilder -> messageBuilder.key(messageKey))
-                    .withSchema(Schema.PROTOBUF(GenericExternalEntity.EntityEnvelope.class))
+                    .withSchema(Schema.PROTOBUF(CollectorEnvelopeUofProto.CollectorEnvelope.class))
                     .send();
         } catch (Exception e) {
             log.error("Message failed to be sent to Pulsar topic. Message ID: {}. Error: {}",
